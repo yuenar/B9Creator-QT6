@@ -56,8 +56,10 @@ private slots:
     void exposureOfTOverLayersFinished();
 
     void on_pushButtonPauseResume_clicked();
-
-    void on_pushButtonAbort_clicked(QString sAbortText="User Directed Abort.");
+    void on_pushButtonAbort_clicked();
+    
+private slots:
+    void on_pushButtonAbort_clicked(QString sAbortText);
 
 private:
     enum {PRINT_NO, PRINT_SETUP1, PRINT_SETUP2, PRINT_RELEASING, PRINT_EXPOSING, PRINT_ABORT, PRINT_DONE};

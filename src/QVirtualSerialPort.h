@@ -27,6 +27,9 @@ public:
 	void startWatchDogTimer();
 	bool isOpen(){return true;}
 	~QVirtualSerialPort(void);
+	
+	// 重写setDataTerminalReady方法，虚拟串口不需要硬件控制
+	bool setDataTerminalReady(bool set) { Q_UNUSED(set); return true; }
 private:
 	QByteArray m_Bufbytes;
 	QTimer *timer;

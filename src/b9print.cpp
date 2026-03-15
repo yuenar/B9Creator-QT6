@@ -46,10 +46,13 @@ B9Print::B9Print(B9Terminal *pTerm, QWidget *parent) :
     connect(m_pTerminal, SIGNAL(updateProjectorOutput(QString)), this, SLOT(on_updateProjectorOutput(QString)));
     connect(m_pTerminal, SIGNAL(updateProjectorStatus(QString)), this, SLOT(on_updateProjectorStatus(QString)));
     connect(m_pTerminal, SIGNAL(updateProjector(B9PrinterStatus::ProjectorStatus)), this, SLOT(on_updateProjector(B9PrinterStatus::ProjectorStatus)));
-    connect(m_pTerminal, SIGNAL(signalAbortPrint(QString)), this, SLOT(on_pushButtonAbort_clicked(QString)));
+    connect(m_pTerminal, SIGNAL(signalAbortPrint(QString)), this, SLOT(on_signalAbortPrint()));
     connect(m_pTerminal, SIGNAL(PrintReleaseCycleFinished()), this, SLOT(exposeTBaseLayer()));
     connect(m_pTerminal, SIGNAL(pausePrint()), this, SLOT(on_pushButtonPauseResume_clicked()));
     connect(m_pTerminal, SIGNAL(sendStatusMsg(QString)),this, SLOT(setProjMessage(QString)));
+
+    // 手动连接pushButtonAbort的clicked信号
+    connect(ui->pushButtonAbort, SIGNAL(clicked()), this, SLOT(on_pushButtonAbort_clicked()));
 
     QString sTime = QDateTime::currentDateTime().toString("hh:mm");
     ui->lcdNumberTime->setDigitCount(9);
@@ -242,6 +245,12 @@ void B9Print::on_pushButtonPauseResume_clicked()
 }
 
 //从b9terminal各种微调按钮那调用（由sAbortText给出）
+void B9Print::on_pushButtonAbort_clicked()
+{
+    // 使用默认的中止文本
+    on_pushButtonAbort_clicked("User Directed Abort.");
+}
+
 void B9Print::on_pushButtonAbort_clicked(QString sAbortText)
 {
     //提示用户，以确保他们希望中止。

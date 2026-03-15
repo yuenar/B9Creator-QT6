@@ -137,7 +137,8 @@ void MainWindow::showSlice()
 
 void MainWindow::showEdit()
 {
-    emit on_commandEdit_clicked(true);
+    // 直接显示编辑窗口，不需要按钮切换
+    pMW3->show();
 }
 
 void MainWindow::showPrint()
@@ -259,26 +260,16 @@ void MainWindow::on_commandSlice_clicked(bool checked)
     }
     else pMW2->hide();
 }
-void MainWindow::on_commandEdit_clicked(bool checked)
-{
-    if(checked) {
-        pMW3->show();
-        this->hide(); //注释说明，如果没有隐藏主窗口同时显示该窗口
-    }
-    else pMW3->hide();
-}
 
 void MainWindow::on_commandPrint_clicked()
 {
-    QFileDialog dialog(0);
-    QSettings settings;
-    QString openFile = dialog.getOpenFileName(this,"Select a B9Creator Job File to print", settings.value("WorkingDir").toString(), tr("B9Creator Job Files (*.b9j)"));
-    if(openFile.isEmpty()) return;
-    settings.setValue("WorkingDir", QFileInfo(openFile).absolutePath());
-
-    AttemptPrintDialogWithFile(openFile);
-
+    pMW1->hide();
+    pMW2->hide();
+    pMW3->hide();
+    pMW4->show();
 }
+
+// ...
 
 void MainWindow::AttemptPrintDialogWithFile(QString openFile)
 {

@@ -59,10 +59,13 @@ qint64 QVirtualSerialPort::write(const QByteArray &data)
 }
 bool QVirtualSerialPort::open(OpenMode mode)
 {
+	// 虚拟串口不需要真正的串口连接，直接设置打开状态
+	setPortName("virtual");
+	QIODevice::open(mode); // 调用QIODevice的open方法
 	write("V1 1 2\n");
 	write("WB9C1\n");
 	startWatchDogTimer();
-	return isOpen();
+	return true;
 }
 void QVirtualSerialPort::emitReadReady()
 {

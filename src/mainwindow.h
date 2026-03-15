@@ -78,7 +78,6 @@ public slots:
 private slots:
     void on_commandLayout_clicked(bool checked);
     void on_commandSlice_clicked(bool checked);
-    void on_commandEdit_clicked(bool checked);
     void on_commandPrint_clicked();
     void showHelp();
     void doPrint();

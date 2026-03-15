@@ -92,16 +92,15 @@ public slots:
     void SetSupportButtonsEnabled(bool enabled);//设置所有支撑按钮为可用
     void ShowSupportButtons(bool show);//隐藏/显示所有支撑按钮
 	
-    //小工具回调
-	void on_actionFlood_Fill_activated();
-	void on_actionFlood_Void_activated();
-	void on_actionWhite_Pen_activated();
-	void on_actionBlack_Pen_activated();
-	
-	void on_actionCircle_activated();
-	void on_actionSquare_activated();
-	void on_actionTriangle_2_activated();
-	void on_actionDiamond_activated();
+    // Qt6兼容的action槽函数
+	void on_actionFlood_Fill_triggered();
+	void on_actionFlood_Void_triggered();
+	void on_actionWhite_Pen_triggered();
+	void on_actionBlack_Pen_triggered();
+	void on_actionCircle_triggered();
+	void on_actionSquare_triggered();
+	void on_actionTriangle_2_triggered();
+	void on_actionDiamond_triggered();
 
     // 添加缺失的槽函数
     void updateName(QString s);

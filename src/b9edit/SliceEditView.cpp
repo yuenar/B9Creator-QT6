@@ -70,6 +70,7 @@ SliceEditView::SliceEditView(QWidget *parent, Qt::WindowFlags flags) : QMainWind
 	
 	SetSupportTool("circle");
 	SetDrawTool("penfill");
+	
 	// Temporarily disable UI interactions
 // ui.actionPrepare_Base_Gap->setEnabled(false);
 	// Temporarily disable UI interactions
@@ -571,36 +572,36 @@ void SliceEditView::ShowSupportButtons(bool show)//隐藏/显示所有支撑按�
 }
 
 //widget callbacks
-void SliceEditView::on_actionFlood_Fill_activated()
+void SliceEditView::on_actionFlood_Fill_triggered()
 {
 	SetDrawTool("floodfill");
 }
-void SliceEditView::on_actionFlood_Void_activated()
+void SliceEditView::on_actionFlood_Void_triggered()
 {
 	SetDrawTool("floodvoid");
 }
-void SliceEditView::on_actionWhite_Pen_activated()
+void SliceEditView::on_actionWhite_Pen_triggered()
 {
 	SetDrawTool("penfill");
 }
-void SliceEditView::on_actionBlack_Pen_activated()
+void SliceEditView::on_actionBlack_Pen_triggered()
 {
-	SetDrawTool("penvoid");
+	SetDrawTool("penerase");
 }
 
-void SliceEditView::on_actionCircle_activated()
+void SliceEditView::on_actionCircle_triggered()
 {
 	SetSupportTool("circle");
 }
-void SliceEditView::on_actionSquare_activated()
+void SliceEditView::on_actionSquare_triggered()
 {
 	SetSupportTool("square");
 }
-void SliceEditView::on_actionTriangle_2_activated()
+void SliceEditView::on_actionTriangle_2_triggered()
 {
 	SetSupportTool("triangle");
 }
-void SliceEditView::on_actionDiamond_activated()
+void SliceEditView::on_actionDiamond_triggered()
 {
 	SetSupportTool("diamond");
 }
