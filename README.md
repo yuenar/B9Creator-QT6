@@ -1,6 +1,16 @@
 
 
-# B9Creator™ 3D打印控制软件
+# B9Creator™ 3D打印控制软件 | B9Creator™ 3D Printing Control Software
+
+## 🌐 语言切换 | Language Switch
+
+| 🇨🇳 中文版本 | 🇺🇸 English Version |
+|-------------|-------------------|
+| [点击查看中文内容](#中文版本) | [Click for English](#english-version) |
+
+---
+
+# 🇨🇳 中文版本
 
 ## 📋 项目简介
 
@@ -14,7 +24,7 @@ B9Creator™是一个开源的3D打印机固件和控制软件，原本基于QT4
 
 ## 🚀 版本信息
 
-- **当前版本**: Qt6.9.x迁移版本
+- **当前版本**: Qt6.6.x迁移版本
 - **原始版本**: 基于QT4.8
 - **最后更新**: 2026-03-15
 - **维护者**: owenzhang (yuenar2@gmail.com)
@@ -498,7 +508,7 @@ Closes #123
 4. 反馈和修改
 5. 合并到主分支
 
-## �📄 许可证
+## � 许可证
 
 本项目基于 **GNU General Public License v3.0** 许可证开源。
 
@@ -712,4 +722,702 @@ Closes #123
 **感谢您选择B9Creator™开源3D打印软件！**
 
 🎉 **开始您的3D打印之旅吧！** 🎉
+
+---
+
+# 🇺🇸 English Version
+
+# B9Creator™ 3D Printing Control Software
+
+## 📋 Project Overview
+
+B9Creator™ is an open-source 3D printer firmware and control software, originally based on Qt4.8, now successfully migrated to Qt6. This software provides a complete control interface for the B9Creator™ high-resolution DLP/resin 3D printer.
+
+### 🎯 Software Features
+- **High Precision**: Support for high-resolution DLP/resin 3D printing
+- **Cross-Platform**: Full support for Windows, macOS, Linux systems
+- **Open Source**: Based on GNU GPL v3.0 license
+- **User-Friendly**: Intuitive user interface and complete printing workflow
+
+## 🚀 Version Information
+
+- **Current Version**: Qt6.x Migration Version
+- **Original Version**: Based on Qt4.8
+- **Last Update**: 2026-03-15
+- **Maintainer**: owenzhang (yuenar2@gmail.com)
+
+## 📜 Change History
+
+### 2026-03-15 - Qt6 Migration Version (owenzhang)
+- 🆕 **Major Upgrade**: Successfully migrated from Qt4.8 to Qt6.x
+- 📝 **Code Comments**: Added comprehensive Chinese code comments for improved maintainability
+- 🔧 **Code Optimization**: Improved code structure and performance
+- 🏗️ **Modularization**: Redesigned module architecture and interfaces
+- 📚 **Documentation**: Updated project documentation and user guides
+
+### 2015-10-19 - Comment Optimization Version (yuenar2@gmail.com)
+- 📝 **Comment Improvements**: Updated almost all comments for Chinese users
+- 🖥️ **Interface**: Interface remained in English, no localization
+- ⚠️ **Known Issues**: 
+  - Normal slicing not working after compilation on Windows platform
+  - Default support loading issues on Linux/macOS
+
+### 2015-09-24 - First Upload Version (yuenar2@gmail.com)
+- 🎉 **Initial Release**: Open source version based on Qt4.8, migrated to Qt5.6
+- 🖥️ **Platform Support**: Tested on win7-10/OSX10.10.1-10.11/openSUSE13.2/Ubuntu
+- 📦 **Complete Features**: Full 3D printing control functionality
+
+## 🖥️ Supported Platforms
+
+### Windows
+- ✅ Windows 7 (SP1+)
+- ✅ Windows 8/8.1
+- ✅ Windows 10/11
+- ✅ Visual Studio 2019+ compilation support
+
+### macOS
+- ✅ macOS 10.10.1 (Yosemite) and above
+- ✅ Xcode 12+ compilation support
+- ✅ Intel and Apple Silicon (M1/M2) support
+
+### Linux
+- ✅ Ubuntu 16.04 LTS and above
+- ✅ openSUSE 13.2 and above
+- ✅ Debian 9+ and other distributions
+- ✅ GCC 7+ and Clang 8+ compilation support
+
+## 📚 Project Features
+
+### 🎯 Core Features
+- **3D Model Layout**: 
+  - Support for multiple model import and editing
+  - Intelligent auto-arrangement and manual adjustment
+  - Model rotation, scaling, and movement operations
+  - Support structure generation and editing
+
+- **Slicing Engine**:
+  - Efficient model slicing algorithms
+  - Adjustable layer thickness and exposure parameters
+  - Automatic support generation and manual editing
+  - Slice preview and optimization
+
+- **Print Control**:
+  - Complete printing workflow management
+  - Real-time printing status monitoring
+  - Print parameter adjustment and saving
+  - Error detection and handling
+
+- **File Formats**:
+  - Support for STL, OBJ and other common 3D model formats
+  - B9 proprietary project file format (.b9layout)
+  - SLC slice file export
+  - Print job file (.b9j) support
+
+### 🔄 Technical Updates
+- **Qt6 Migration**: 
+  - Complete migration from Qt4.8 to Qt6.x
+  - Modernized UI components and interactions
+  - Improved signal-slot mechanism
+  - Better cross-platform compatibility
+
+- **Chinese Comments**: 
+  - Detailed Chinese comments added to all core files
+  - Unified comment format and style
+  - Detailed function and class descriptions
+  - Business logic and algorithm explanations
+
+- **Code Optimization**: 
+  - Improved memory management
+  - Optimized algorithm performance
+  - Better error handling
+  - Thread safety improvements
+
+- **Modular Design**: 
+  - Clear module division
+  - Standardized interface design
+  - Loose-coupled component architecture
+  - Easy to extend and maintain
+
+## 📁 Project Structure
+
+```
+B9Creator-QT5.X/
+├── src/                          # Source code directory
+│   ├── b9layout/                 # Layout module - 3D model layout and project data management
+│   │   ├── projectdata.h/cpp     # Project data management - File I/O, project state maintenance
+│   │   ├── b9tesselator.h/cpp    # Triangulation - OpenGL triangulation algorithms
+│   │   ├── SlcExporter.h/cpp     # SLC file export - Standard slice format export
+│   │   ├── b9verticaltricontainer.h/cpp  # Vertical triangle container - Z-axis layering optimization
+│   │   ├── b9layout.h/cpp        # Main layout class - Layout core logic
+│   │   ├── loop.h/cpp             # Loop data processing
+│   │   ├── triangle3d.h/cpp      # 3D triangle data structure
+│   │   └── geometricfunctions.h/cpp # Geometric calculation functions
+│   ├── b9edit/                   # Edit module - Slice editing and graphics processing
+│   │   ├── SliceEditView.h/cpp   # Slice edit view - Visual editing interface
+│   │   ├── floodfill.h/cpp       # Flood fill algorithm - Region fill operations
+│   │   ├── DrawingContext.h/cpp  # Drawing context - Graphics rendering management
+│   │   ├── sliceeditview.ui       # Qt Designer interface file
+│   │   └── ...                   # Other edit-related files
+│   ├── b9print/                  # Print module - Print control and monitoring
+│   │   ├── b9print.h/cpp         # Print control core - Print workflow management
+│   │   └── ...                   # Other print-related files
+│   ├── b9terminal/               # Terminal module - Printer communication
+│   │   ├── b9terminal.h/cpp      # Printer terminal control
+│   │   └── ...                   # Other terminal-related files
+│   ├── b9projector/              # Projector module - Projection control
+│   │   ├── b9projector.h/cpp     # Projector control
+│   │   └── ...                   # Other projector-related files
+│   ├── mainwindow.h/cpp          # Main window - Application main interface
+│   ├── main.cpp                  # Program entry point
+│   └── ...                       # Other core files
+├── resources/                    # Resource files directory
+│   ├── icons/                    # Icon resources
+│   ├── images/                   # Image resources
+│   ├── ui/                       # UI files
+│   └── ...                       # Other resources
+├── docs/                         # Documentation directory
+│   ├── api/                      # API documentation
+│   ├── userguide/                # User guide
+│   └── ...                       # Other documentation
+├── build/                        # Build output directory
+├── CMakeLists.txt                # CMake build configuration
+├── README.md                     # Project documentation
+├── LICENSE                       # License file
+└── ...                           # Other configuration files
+```
+
+## 🔧 Build Instructions
+
+### 📋 Environment Requirements
+
+#### Required Components
+- **Qt6**: Qt6.2 or higher version
+- **CMake**: 3.16 or higher version  
+- **Compiler**: C++17 compatible compiler
+  - Windows: Visual Studio 2019+ or MinGW-w64 8+
+  - macOS: Xcode 12+ or Clang 8+
+  - Linux: GCC 7+ or Clang 8+
+
+#### Optional Components
+- **OpenGL**: For 3D rendering and triangulation
+- **Git**: For version control and source code retrieval
+- **Python**: For build scripts and tools
+
+### 🏗️ Build Steps
+
+#### Windows (Visual Studio)
+```cmd
+# 1. Install Qt6 and Visual Studio 2019+
+# 2. Clone project
+git clone [repository-url]
+cd B9Creator-QT5.X
+
+# 3. Create build directory
+mkdir build
+cd build
+
+# 4. Configure CMake
+cmake .. -G "Visual Studio 16 2019" -A x64
+
+# 5. Build
+cmake --build . --config Release
+
+# 6. Run
+cd Release
+B9Creator.exe
+```
+
+#### macOS (Xcode)
+```bash
+# 1. Install Qt6 and Xcode
+# 2. Clone project
+git clone [repository-url]
+cd B9Creator-QT5.X
+
+# 3. Create build directory
+mkdir build && cd build
+
+# 4. Configure CMake
+cmake .. -G Xcode
+
+# 5. Build
+cmake --build . --config Release
+
+# 6. Run
+open B9Creator.app
+```
+
+#### Linux (GCC)
+```bash
+# 1. Install dependencies
+sudo apt-get install qt6-base-dev cmake build-essential
+
+# 2. Clone project
+git clone [repository-url]
+cd B9Creator-QT5.X
+
+# 3. Create build directory
+mkdir build && cd build
+
+# 4. Configure CMake
+cmake .. -DCMAKE_BUILD_TYPE=Release
+
+# 5. Build
+make -j$(nproc)
+
+# 6. Run
+./B9Creator
+```
+
+### ⚠️ Build Notes
+
+#### Windows Platform
+- Ensure Qt6 environment variables are correctly set
+- May need to install Visual C++ Redistributable
+- Some features may require administrator privileges
+
+#### macOS Platform  
+- Ensure Xcode command line tools are installed
+- May need to disable Gatekeeper to run unsigned applications
+- Apple Silicon Macs need arm64 version of Qt6
+
+#### Linux Platform
+- Ensure OpenGL drivers are properly installed
+- May need to install additional Qt6 modules
+- Some distributions may require library path adjustments
+
+## 📖 Module Details
+
+### b9layout Module - Layout Management Core
+
+#### projectdata (Project Data Management)
+- **Function**: Responsible for project file I/O, project state maintenance, and data management
+- **Main Class**: `ProjectData`
+- **Core Features**:
+  - Project file (.b9layout) reading and saving
+  - Model instance management and layout data
+  - Print parameters and settings management
+  - Project modification state tracking
+- **File Format**: Support for version 13 and 14 layout file formats
+- **Data Structure**: Contains model list, resolution, pixel size, build space, etc.
+
+#### b9tesselator (Triangulation)
+- **Function**: OpenGL triangulation algorithm for model mesh processing
+- **Main Class**: `B9Tesselator`
+- **Core Features**:
+  - 2D polygon triangulation
+  - OpenGL callback function handling
+  - Vertex data management and optimization
+  - Memory management and error handling
+- **Algorithm**: Based on GLU triangulator
+- **Application**: Used for model slicing and support generation
+
+#### SlcExporter (SLC File Export)
+- **Function**: Standard SLC format file export
+- **Main Class**: `SlcExporter`
+- **Core Features**:
+  - SLC file header information writing
+  - Slice data and boundary export
+  - Unit conversion and coordinate processing
+  - Binary file format handling
+- **File Format**: Support for SLC 2.0 standard
+- **Application**: Compatibility with other 3D printing software
+
+#### b9verticaltricontainer (Vertical Triangle Container)
+- **Function**: Z-axis layered triangle container for optimized triangle processing
+- **Main Class**: `B9VerticalTriContainer`
+- **Core Features**:
+  - Triangle management by Z-axis range
+  - Triangle fitness determination
+  - Container linked list structure management
+  - Spatial indexing optimization
+- **Algorithm**: Vertical space partitioning
+- **Application**: Improves slicing algorithm efficiency
+
+### b9edit Module - Editing and Graphics Processing
+
+#### SliceEditView (Slice Edit View)
+- **Function**: Visual interface for slice editing
+- **Main Class**: `SliceEditView`
+- **Core Features**:
+  - Slice image display and editing
+  - Support structure editing
+  - Drawing tools and operations
+  - Real-time preview and updates
+- **Interface**: Based on Qt Designer UI files
+- **Interaction**: Mouse and keyboard event handling
+
+#### floodfill (Flood Fill Algorithm)
+- **Function**: Region fill algorithm implementation
+- **Main Class**: Flood fill related classes
+- **Core Features**:
+  - Seed fill algorithm
+  - Region detection and marking
+  - Boundary processing and optimization
+  - Multiple fill strategy support
+- **Algorithm**: Scanline fill and recursive fill
+- **Application**: Support generation and region selection
+
+#### DrawingContext (Drawing Context)
+- **Function**: Graphics rendering management and drawing operations
+- **Main Class**: `DrawingContext`
+- **Core Features**:
+  - 2D graphics drawing interface
+  - Drawing state management
+  - Graphics object operations
+  - Rendering optimization
+- **Graphics**: Support for lines, polygons, text, etc.
+- **Application**: Slice preview and editing interface
+
+### b9print Module - Print Control
+
+#### b9print (Print Control Core)
+- **Function**: 3D printing workflow management and control
+- **Main Class**: `B9Print`
+- **Core Features**:
+  - Print job management
+  - Print parameter control
+  - Real-time status monitoring
+  - Error handling and recovery
+- **Communication**: Communication with printer hardware
+- **Workflow**: Complete process from slicing to printing
+
+## 🌟 Major Improvements Details
+
+### Qt6 Migration Optimization
+- **Signal-Slot Syntax**: Updated from Qt4 `SIGNAL()`/`SLOT()` macros to Qt6 function pointer syntax
+- **UI Components**: Using Qt6 modernized UI components for improved user experience
+- **Thread Safety**: Improved multi-threading handling for better stability
+- **Module Dependencies**: Optimized inter-module dependencies, reduced coupling
+- **Memory Management**: Using Qt6 smart pointers and modern C++ features
+- **Event Handling**: Updated event handling mechanism for improved response performance
+
+### Code Quality Enhancement
+- **Complete Chinese Comments**: 
+  - Detailed Chinese comments added to all core .h and .cpp files
+  - Unified comment format: `// comment content` or `/* comment content */`
+  - Function functionality, parameter descriptions, return values, notes included
+  - Detailed business logic and algorithm explanations
+
+- **Unified Code Style**:
+  - Standardized naming conventions (camelCase)
+  - Unified indentation and formatting
+  - Consistent bracket and space usage
+  - Standardized header file include order
+
+- **Documentation Improvement**:
+  - Detailed module functionality descriptions
+  - Complete API documentation
+  - Clear architecture design documentation
+  - User usage guides
+
+- **Readability Enhancement**:
+  - Clear code structure and logic
+  - Reasonable function decomposition and modularization
+  - Rich comments and explanations
+  - Consistent error handling patterns
+
+### Feature Enhancement
+- **Performance Optimization**:
+  - Improved algorithm complexity
+  - Optimized memory usage
+  - Faster data processing speed
+  - Reduced startup time
+
+- **Error Handling**:
+  - Comprehensive exception handling mechanisms
+  - Detailed error logging
+  - User-friendly error messages
+  - Automatic recovery and retry mechanisms
+
+- **Compatibility**:
+  - Better file format compatibility
+  - Backward compatibility with old version files
+  - Cross-platform consistency
+  - Hardware compatibility improvements
+
+- **User Experience**:
+  - Improved interface interactions
+  - More intuitive operation workflow
+  - Real-time feedback and prompts
+  - Customizable setting options
+
+## 🤝 Contributing Guidelines
+
+### 🎯 How to Contribute
+
+We welcome all forms of contributions! Whether it's code, documentation, bug reports, or feature suggestions.
+
+#### 🐛 Reporting Issues
+- Use GitHub Issues to report bugs
+- Provide detailed reproduction steps
+- Include system information and error logs
+- Add relevant screenshots or videos
+
+#### 💡 Feature Suggestions
+- Describe new feature requirements in Issues
+- Explain use cases and expected effects
+- Discuss implementation solutions and technical details
+
+#### 🔧 Code Contributions
+1. **Fork Project**: Click the Fork button in the top right of GitHub
+2. **Clone Repository**: `git clone [your-fork-url]`
+3. **Create Branch**: `git checkout -b feature/AmazingFeature`
+4. **Write Code**: Follow project coding standards
+5. **Test Verification**: Ensure functionality works and doesn't break existing features
+6. **Submit Changes**: `git commit -m 'Add some AmazingFeature'`
+7. **Push Branch**: `git push origin feature/AmazingFeature`
+8. **Create PR**: Create Pull Request on GitHub
+
+#### 📝 Documentation Improvements
+- Correct errors in documentation
+- Add missing explanations
+- Improve example code
+- Translate documentation to other languages
+
+### 📋 Submission Guidelines
+
+#### Commit Message Format
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+#### Type Description
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation update
+- `style`: Code format adjustment
+- `refactor`: Code refactoring
+- `test`: Test related
+- `chore`: Build process or auxiliary tool changes
+
+#### Example
+```
+feat(ui): Add print progress display feature
+
+- Add real-time progress bar in main interface
+- Display remaining time and completion percentage
+- Support pause and resume operations
+
+Closes #123
+```
+
+### 🔍 Code Review
+
+All code contributions require code review:
+
+#### Review Points
+- ✅ Code meets project standards
+- ✅ Functionality is correct and complete
+- ✅ Includes appropriate tests
+- ✅ Documentation is updated
+- ✅ Performance impact is acceptable
+- ✅ Security considerations are adequate
+
+#### Review Process
+1. Create Pull Request
+2. Automated tests run
+3. Maintainer manual review
+4. Feedback and modifications
+5. Merge to main branch
+
+## 📄 License
+
+This project is open source under the **GNU General Public License v3.0** license.
+
+### 📜 License Key Points
+
+#### ✅ You Can:
+- **Use**: Freely use software for any purpose
+- **Modify**: Modify source code to meet your needs
+- **Distribute**: Distribute original or modified versions
+- **Private Use**: Use for personal or commercial projects
+
+#### ⚠️ You Must:
+- **Retain Notice**: Keep original copyright and license notices
+- **State Changes**: Clearly mark modifications to original code
+- **Open Source Changes**: If distributing modified versions, must use same license
+- **Provide Source**: Ensure users can obtain source code
+
+#### ❌ You Cannot:
+- **Assume Liability**: Authors assume no warranty liability
+- **Trademark Use**: Cannot use project trademarks for commercial promotion
+
+### 📋 Full License Text
+
+For the complete license text, please see the [LICENSE](LICENSE) file in the project root directory.
+
+## 📞 Contact Information
+
+### 👥 Project Team
+
+#### Current Maintainer
+- **owenzhang** - Primary maintainer and Qt6 migration lead
+  - 📧 Email: yuenar2@gmail.com
+  - 🎯 Responsibilities: Code maintenance, feature development, community management
+
+#### Original Contributors
+- **yuenar2@gmail.com** - Project founder and early maintainer
+  - 🎯 Contributions: Initial open source release, Chinese comment optimization
+
+### 🌐 Official Channels
+
+#### Project Homepage
+- **Official Website**: http://b9creator.com/
+- **GitHub Repository**: [Project GitHub URL]
+- **Documentation Site**: [Documentation website URL]
+
+#### Community Communication
+- **Technical Discussion**: [Forum URL]
+- **Issue Reporting**: [GitHub Issues]
+- **Feature Suggestions**: [GitHub Discussions]
+
+### 📧 Business Contact
+
+For business cooperation, technical support, or custom development, please contact:
+
+- **Business Cooperation**: business@b9creator.com
+- **Technical Support**: support@b9creator.com
+- **Media Inquiries**: media@b9creator.com
+
+### 🕐 Support Hours
+
+- **Technical Support**: Weekdays 9:00-18:00 (UTC+8)
+- **Community Response**: Usually within 24 hours
+- **Urgent Issues**: Issues marked as urgent will be prioritized
+
+## 🙏 Acknowledgments
+
+### 🌟 Special Thanks
+
+#### Original Development Team
+Thanks to B9Creations, LLC for providing excellent foundation code and continued support:
+- **Core Architecture Design**: Laid solid technical foundation for the project
+- **Hardware Integration**: Achieved perfect compatibility with B9Creator™ printers
+- **Algorithm Optimization**: Provided efficient slicing and printing algorithms
+
+#### Community Contributors
+Thanks to all developers and users who contributed to the project:
+- **Code Contributions**: Submit code, fix bugs, develop new features
+- **Testing Feedback**: Report issues, provide test results, improvement suggestions
+- **Documentation**: Write documentation, translate content, create tutorials
+- **Community Support**: Help newcomers, share experiences, promote project
+
+### 📚 Technical Acknowledgments
+
+#### Open Source Projects
+This project relies on and learns from the following excellent open source projects:
+- **Qt Framework**: Cross-platform GUI development framework
+- **OpenGL**: 3D graphics rendering standard
+- **CMake**: Cross-platform build system
+- **STL**: C++ Standard Template Library
+
+#### Technical Standards
+- **SLC Format**: 3D printing slice file standard
+- **STL Format**: 3D model file standard
+- **GNU GPL**: Open source software license standard
+
+## 🔮 Future Plans
+
+### 📅 Development Roadmap
+
+#### Short-term Goals (3-6 months)
+- ✅ **Qt6 Migration Complete**: Fully migrate to Qt6.x
+- ✅ **Chinese Comments Complete**: Add Chinese comments to all core files
+- 🔄 **Performance Optimization**: Improve slicing and rendering performance
+- 🔄 **UI Improvements**: Modernized user interface design
+- 🔄 **Documentation**: Complete user and developer documentation
+
+#### Mid-term Goals (6-12 months)
+- 🎯 **New Feature Development**: 
+  - Advanced support generation algorithms
+  - Real-time slice preview
+  - Batch print management
+  - Cloud project synchronization
+- 🎯 **Compatibility Enhancement**:
+  - More 3D printer support
+  - More file format support
+  - Mobile application development
+- 🎯 **Performance Optimization**:
+  - Multi-threaded slicing engine
+  - GPU-accelerated rendering
+  - Memory usage optimization
+
+#### Long-term Goals (1-2 years)
+- 🚀 **Ecosystem Development**:
+  - Plugin system development
+  - Third-party tool integration
+  - Open API platform
+- 🚀 **Intelligent Development**:
+  - AI-assisted support generation
+  - Automatic parameter optimization
+  - Intelligent error detection
+- 🚀 **Commercial Development**:
+  - Enterprise version features
+  - Technical support services
+  - Training and certification
+
+### 🎯 Technical Vision
+
+#### Architecture Evolution
+- **Microservices**: Split monolithic application into microservices architecture
+- **Cloud Native**: Support containerized deployment and cloud operation
+- **Cross-Platform**: Expand to Web, mobile, and other platforms
+
+#### Technical Innovation
+- **AI Integration**: Integrate machine learning and artificial intelligence technologies
+- **Real-time Collaboration**: Support multi-user real-time collaborative editing
+- **Virtual Reality**: Support VR/AR technology for 3D preview and editing
+
+#### Community Building
+- **Developer Ecosystem**: Build active developer community
+- **User Community**: Build user communication and support platform
+- **Education Promotion**: Promote 3D printing technology and open source culture
+
+---
+
+## 📌 Important Notice
+
+### ⚠️ Disclaimer
+
+**This software is provided "as is" without any express or implied warranties.**
+
+#### Usage Risks
+- Users assume all risks when using this software
+- Development team is not responsible for any direct or indirect losses
+- Recommend thorough testing before production use
+
+#### Liability Limitations
+- Software may have defects and errors
+- Features may change or be discontinued at any time
+- No guarantee of continuous service availability
+
+### 🔒 Privacy Protection
+
+#### Data Collection
+- This software does not collect user personal information
+- Usage data is only used for feature improvement
+- User data will not be shared with third parties
+
+#### Data Security
+- Project files are stored locally
+- Network communication uses encrypted transmission
+- Regular security patch updates
+
+### 📜 Copyright Notice
+
+© 2011-2012 B9Creations, LLC 
+© 2015-2026 yuenar2@gmail.com
+
+All rights reserved.
+
+---
+
+**Thank you for choosing B9Creator™ open source 3D printing software!**
+
+🎉 **Start your 3D printing journey now!** 🎉
 

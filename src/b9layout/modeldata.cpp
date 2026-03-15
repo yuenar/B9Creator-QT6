@@ -13,6 +13,7 @@
  ***************************************************************************/
 
 #include "modeldata.h"
+#include "b9modelinstance.h"
 #include "../b9modelloader.h"
 #include "../loadingbar.h"
 

@@ -16,9 +16,6 @@
 
 // Qt相关头文件包含
 #include <QStringList>    // 字符串列表
-#include <QVector3D>      // 3D向量
-#include <QVector2D>      // 2D向量
-#include <vector>         // STL向量容器
 
 // 项目内部头文件
 #include "b9layout.h"      // 布局类

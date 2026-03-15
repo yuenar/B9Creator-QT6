@@ -18,10 +18,10 @@
 #include "b9layout.h"
 #include "triangle3d.h"
 
-#include "b9modelinstance.h"
-
-
 #include <vector>
+
+// 前向声明避免循环依赖
+class B9ModelInstance;
 class B9Layout;
 class aiScene;
 class ModelData {
