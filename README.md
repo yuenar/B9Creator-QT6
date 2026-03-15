@@ -6,7 +6,7 @@
 
 | 🇨🇳 中文版本 | 🇺🇸 English Version |
 |-------------|-------------------|
-| [点击查看中文内容](#中文版本) | [Click for English](#english-version) |
+| [点击查看中文内容](#-中文版本) | [Click for English](#-english-version) |
 
 ---
 
