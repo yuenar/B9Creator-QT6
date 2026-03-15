@@ -7,6 +7,7 @@ set(SOURCES
     logfilemanager.cpp
     myauth.cpp
     OS_Wrapper_Functions.cpp
+    screensaverwaker.cpp
     QVirtualSerialPort.cpp
     crushbitmap.cpp
     loadingbar.cpp
@@ -81,6 +82,7 @@ set(HEADERS
     dlgprintprep.h
     b9modelloader.h
     OS_Wrapper_Functions.h
+    screensaverwaker.h
     QVirtualSerialPort.h
     b9projector.h
     b9updatemanager.h
@@ -144,7 +146,6 @@ target_link_libraries(B9Creator PRIVATE
     Qt6::Concurrent
     Qt6::OpenGLWidgets
     Qt6::SerialPort
-    setupapi
 )
 
 # Windows 特定配置
@@ -152,6 +153,7 @@ if(WIN32)
     target_link_libraries(B9Creator
         PRIVATE
             opengl32
+            setupapi
     )
 endif()
 
