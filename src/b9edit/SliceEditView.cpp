@@ -571,41 +571,6 @@ void SliceEditView::ShowSupportButtons(bool show)//隐藏/显示所有支撑按�
 // ui.actionDiamond->setVisible(show);
 }
 
-//widget callbacks
-void SliceEditView::on_actionFlood_Fill_triggered()
-{
-	SetDrawTool("floodfill");
-}
-void SliceEditView::on_actionFlood_Void_triggered()
-{
-	SetDrawTool("floodvoid");
-}
-void SliceEditView::on_actionWhite_Pen_triggered()
-{
-	SetDrawTool("penfill");
-}
-void SliceEditView::on_actionBlack_Pen_triggered()
-{
-	SetDrawTool("penerase");
-}
-
-void SliceEditView::on_actionCircle_triggered()
-{
-	SetSupportTool("circle");
-}
-void SliceEditView::on_actionSquare_triggered()
-{
-	SetSupportTool("square");
-}
-void SliceEditView::on_actionTriangle_2_triggered()
-{
-	SetSupportTool("triangle");
-}
-void SliceEditView::on_actionDiamond_triggered()
-{
-	SetSupportTool("diamond");
-}
-
 ////////////////////////////////
 //Protected
 ////////////////////////////////

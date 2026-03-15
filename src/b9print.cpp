@@ -247,13 +247,8 @@ void B9Print::on_pushButtonPauseResume_clicked()
 //从b9terminal各种微调按钮那调用（由sAbortText给出）
 void B9Print::on_pushButtonAbort_clicked()
 {
-    // 使用默认的中止文本
-    on_pushButtonAbort_clicked("User Directed Abort.");
-}
-
-void B9Print::on_pushButtonAbort_clicked(QString sAbortText)
-{
-    //提示用户，以确保他们希望中止。
+    // 提示用户，以确保他们希望中止。
+    QString sAbortText = "User Directed Abort.";
     if(sAbortText == "User Directed Abort.")
     {
         QMessageBox msgBox;
@@ -262,15 +257,11 @@ void B9Print::on_pushButtonAbort_clicked(QString sAbortText)
         msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
         msgBox.setDefaultButton(QMessageBox::No);
         int ret = msgBox.exec();
-
-        if(ret == QMessageBox::No)
-            return;
+        if(ret==QMessageBox::No)return;
     }
 
-
-
-    m_sAbortMessage = sAbortText;
-    if(m_sAbortMessage.contains("Jammed Mechanism")||m_sAbortMessage.contains("Lost Printer Connection")||
+    // 如果中止消息包含特殊字符串，则立即处理
+    if(m_sAbortMessage.contains("ERROR") ||
        (m_sAbortMessage.contains("Projector"))){
         //特殊情况下，总是尽快处理。
         m_pTerminal->rcSetCPJ(NULL); //blank
