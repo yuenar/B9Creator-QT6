@@ -676,6 +676,82 @@ void SliceEditView::mouseReleaseEvent(QMouseEvent * pEvent)
 	QWidget::mouseReleaseEvent(pEvent);
 }
 
+// 添加缺失的槽函数实现
+void SliceEditView::updateName(QString s)
+{
+    if (pBuilder) {
+        pBuilder->updateName(s);
+    }
+}
+
+void SliceEditView::updateDescription(QString s)
+{
+    if (pBuilder) {
+        pBuilder->updateDescription(s);
+    }
+}
+
+void SliceEditView::updateXY(QString s)
+{
+    if (pBuilder) {
+        pBuilder->updateXY(s);
+    }
+}
+
+void SliceEditView::updateZ(QString s)
+{
+    if (pBuilder) {
+        pBuilder->updateZ(s);
+    }
+}
+
+void SliceEditView::ShowSliceWindow()
+{
+    show();
+}
+
+void SliceEditView::newJob()
+{
+    if (pBuilder) {
+        pBuilder->newJob();
+    }
+}
+
+void SliceEditView::openJob()
+{
+    if (pBuilder) {
+        pBuilder->openJob();
+    }
+}
+
+void SliceEditView::saveJob()
+{
+    if (pBuilder) {
+        pBuilder->saveJob();
+    }
+}
+
+void SliceEditView::saveJobAs()
+{
+    if (pBuilder) {
+        pBuilder->saveJobAs();
+    }
+}
+
+void SliceEditView::importSlices()
+{
+    if (pBuilder) {
+        pBuilder->importSlices();
+    }
+}
+
+void SliceEditView::ExportToFolder()
+{
+    if (pBuilder) {
+        pBuilder->ExportToFolder();
+    }
+}
+
 
 
 

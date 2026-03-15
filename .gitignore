@@ -27,3 +27,4 @@ CMakeLists.txt.user*
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #cmake-build-*
 **.DS_Store
+**/._.DS_Store

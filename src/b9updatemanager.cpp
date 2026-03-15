@@ -1,40 +1,16 @@
-/*************************************************************************************
-//
-//  LICENSE INFORMATION
-//
-//  BCreator(tm)
-//  Software for the control of the 3D Printer, "B9Creator"(tm)
-//
-//  Copyright 2011-2012 B9Creations, LLC
-//  B9Creations(tm) and B9Creator(tm) are trademarks of B9Creations, LLC
-//
-//  This file is part of B9Creator
-//
-//    B9Creator is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//    B9Creator is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with B9Creator .  If not, see <http://www.gnu.org/licenses/>.
-//
-//  The above copyright notice and this permission notice shall be
-//    included in all copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-//    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-//    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-//    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-//    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-*************************************************************************************/
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    system
+ * 文件名:     b9updatemanager.cpp
+ * 模块功能:   更新管理器实现文件，包含应用程序更新的具体实现
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
 
 #include "b9updatemanager.h"
 #include <QMessageBox>

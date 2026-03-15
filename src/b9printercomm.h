@@ -1,43 +1,18 @@
-/*************************************************************************************
-//
-//  LICENSE INFORMATION
-//
-//  BCreator(tm)
-//  Software for the control of the 3D Printer, "B9Creator"(tm)
-//
-//  Copyright 2011-2012 B9Creations, LLC
-//  B9Creations(tm) and B9Creator(tm) are trademarks of B9Creations, LLC
-//
-//  This file is part of B9Creator
-//
-//    B9Creator is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//    B9Creator is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with B9Creator .  If not, see <http://www.gnu.org/licenses/>.
-//
-//  The above copyright notice and this permission notice shall be
-//    included in all copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-//    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-//    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-//    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-//    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-*************************************************************************************/
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    print
+ * 文件名:     b9printercomm.h
+ * 模块功能:   打印机通信头文件，定义打印机通信相关类和接口
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
 
-#ifndef B9PRINTERCOMM_H
-#define B9PRINTERCOMM_H
+#pragma once
 #include <QObject>
 #include <QElapsedTimer>
 #include <QtDebug>
@@ -50,9 +25,8 @@
 #define MSG_FIRMUPDATE "Updating Firmware..."
 
 
-class  QextSerialPort;
-class  QextSerialEnumerator;
-struct QextPortInfo;
+class  QSerialPort;
+class  QSerialPortInfo;
 
 /////////////////////////////////////////////////////////////////////////////
 class B9PrinterStatus
@@ -236,9 +210,8 @@ public:
     bool m_bIsPrinting;
 	bool bAttachVirtual;
 private:
-    QextSerialPort *m_serialDevice;
-    QextSerialEnumerator *pEnumerator;		// 枚举寻找可用的通讯端口
-    QList<QextPortInfo> *pPorts;			// 可用通讯端口列表
+    QSerialPort *m_serialDevice;
+    QList<QSerialPortInfo> *pPorts;			// 可用通讯端口列表
     QString sNoFirmwareAurdinoPort;         // 如果我们找到一个Arduino没有固件，将其设置为端口名作为标志
     bool m_bCloneBlanks;                    // 如果为假，我们不会烧固件到可能空白的Arduino板子
 
@@ -254,4 +227,4 @@ private:
     bool m_bIsMirrored;
 	
 };
-#endif // B9PRINTERCOMM_H
+ 

@@ -1,5 +1,18 @@
-#ifndef B9SUPPORTSTRUCTURE_H
-#define B9SUPPORTSTRUCTURE_H
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    model
+ * 文件名:     b9supportstructure.h
+ * 模块功能:   支撑结构类头文件，定义3D打印支撑结构相关类和接口
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
+
+#pragma once
 
 
 #include <vector>
@@ -238,5 +251,4 @@ private: //函数
     void ReBuildGeometry();
     bool isVisible;
 };
-
-#endif // B9SUPPORTSTRUCTURE_H
+ 

@@ -52,12 +52,6 @@ set(SOURCES
     b9edit/DrawingContext.cpp
     b9edit/aboutbox.cpp
     b9edit/floodfill.cpp
-    # qextserialport
-    qextserialport-1.2beta2/src/qextserialenumerator.cpp
-    qextserialport-1.2beta2/src/qextserialport.cpp
-    qextserialport-1.2beta2/src/qextserialenumerator_win.cpp
-    qextserialport-1.2beta2/src/qextserialport_win.cpp
-    qextserialport-1.2beta2/src/qextwineventnotifier_p.cpp
 )
 
 set(HEADERS
@@ -106,8 +100,6 @@ set(HEADERS
     b9edit/DrawingContext.h
     b9edit/aboutbox.h
     b9edit/floodfill.h
-    qextserialport-1.2beta2/src/qextserialport.h
-    qextserialport-1.2beta2/src/qextserialenumerator.h
 )
 
 set(UI_FILES
@@ -151,6 +143,7 @@ target_link_libraries(B9Creator PRIVATE
     Qt6::Network
     Qt6::Concurrent
     Qt6::OpenGLWidgets
+    Qt6::SerialPort
     setupapi
 )
 
@@ -159,11 +152,6 @@ if(WIN32)
     target_link_libraries(B9Creator
         PRIVATE
             opengl32
-    )
-    # 添加头文件路径
-    target_include_directories(B9Creator PRIVATE
-        ${CMAKE_SOURCE_DIR}/src/qextserialport-1.2beta2/src
-        ${CMAKE_SOURCE_DIR}/src/openssl/include
     )
 endif()
 

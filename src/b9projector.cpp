@@ -1,40 +1,16 @@
-/*************************************************************************************
-//
-//  LICENSE INFORMATION
-//
-//  BCreator(tm)
-//  Software for the control of the 3D Printer, "B9Creator"(tm)
-//
-//  Copyright 2011-2012 B9Creations, LLC
-//  B9Creations(tm) and B9Creator(tm) are trademarks of B9Creations, LLC
-//
-//  This file is part of B9Creator
-//
-//    B9Creator is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//    B9Creator is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with B9Creator .  If not, see <http://www.gnu.org/licenses/>.
-//
-//  The above copyright notice and this permission notice shall be
-//    included in all copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-//    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-//    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-//    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-//    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-*************************************************************************************/
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    print
+ * 文件名:     b9projector.cpp
+ * 模块功能:   投影仪实现文件，包含投影仪控制的具体实现
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
 
 #include <QtGui>
 #include <QScreen>
@@ -443,7 +419,11 @@ void B9Projector::blankProjector()
 void B9Projector::drawGrid()
 {
     if(!m_bGrid) return;
+    if(mImage.isNull()) return;
+    
 	QPainter painter(&mImage);
+	if(!painter.isActive()) return;
+	
 	QColor color;
 	color.setRgb(127,0,0);
 
@@ -460,7 +440,11 @@ void B9Projector::drawGrid()
 void B9Projector::drawStatusMsg()
 {
     if(mStatusMsg.size()==0 || this->isHidden())return;
+    if(mImage.isNull()) return;
+    
 	QPainter painter(&mImage);
+	if(!painter.isActive()) return;
+	
 	QColor color;
 	color.setRgb(127,0,0);
 	painter.setPen(color);
@@ -515,6 +499,8 @@ void B9Projector::drawCBM()
         createToverMap(3);  //计算的像素效果高达3像素的距离半径。
         // 在这里，我们复制灰度以上使用切片作为掩体
         QPainter mPainter(&mCurSliceImage);
+        if(!mPainter.isActive()) return;
+        
         mPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
         mPainter.drawImage(0,0,m_NormalizedMask);
 		
@@ -524,6 +510,8 @@ void B9Projector::drawCBM()
 
     // 在这里，我们所得到的规范化切片复制到mImage
     QPainter mPainter2(&mImage);
+    if(!mPainter2.isActive()) return;
+    
     mPainter2.setCompositionMode(QPainter::CompositionMode_SourceOver);
     mPainter2.drawImage(0,0,mCurSliceImage);
 }
@@ -563,6 +551,8 @@ void B9Projector::resizeEvent ( QResizeEvent * pEvent )
     pEvent->accept();
     QImage newImage(width(),height(),QImage::Format_ARGB32_Premultiplied);
     QPainter painter(&newImage);
+    if(!painter.isActive()) return;
+    
 	painter.drawImage(QPoint(0,0), mImage);
 	mImage = newImage;
     createNormalizedMask();

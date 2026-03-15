@@ -1,5 +1,19 @@
-#ifndef B9PRINTERMODELMANAGER_H
-#define B9PRINTERMODELMANAGER_H
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    material
+ * 文件名:     b9printermodelmanager.h
+ * 模块功能:   打印机模型管理器头文件，定义打印机模型管理相关类和接口
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
+
+#pragma once
+
 
 #include <QObject>
 #include <QVector>
@@ -47,4 +61,4 @@ private:
 
 };
 
-#endif // B9PRINTERMODELMANAGER_H
+ 

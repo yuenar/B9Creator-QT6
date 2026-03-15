@@ -13,12 +13,11 @@ find_package(Qt6 6.9 REQUIRED COMPONENTS
   Network
   Concurrent
   OpenGLWidgets
+  SerialPort
 )
 
 qt_standard_project_setup()
 
 # 顶层只负责全局配置与子目录
-# 第三方库（如 qextserialport）后续可在此处 add_subdirectory
-
 add_subdirectory(src)
 add_subdirectory(resources)

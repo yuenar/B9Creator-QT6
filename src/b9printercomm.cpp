@@ -1,40 +1,16 @@
-/*************************************************************************************
-//
-//  LICENSE INFORMATION
-//
-//  BCreator(tm)
-//  Software for the control of the 3D Printer, "B9Creator"(tm)
-//
-//  Copyright 2011-2012 B9Creations, LLC
-//  B9Creations(tm) and B9Creator(tm) are trademarks of B9Creations, LLC
-//
-//  This file is part of B9Creator
-//
-//    B9Creator is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//    B9Creator is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with B9Creator .  If not, see <http://www.gnu.org/licenses/>.
-//
-//  The above copyright notice and this permission notice shall be
-//    included in all copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-//    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-//    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-//    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-//    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-*************************************************************************************/
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    print
+ * 文件名:     b9printercomm.cpp
+ * 模块功能:   打印机通信实现文件，包含打印机通信的具体实现
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
 
 #include <QApplication>
 #include <QDir>
@@ -43,8 +19,8 @@
 #include <QMessageBox>
 #include "b9printercomm.h"
 #include "b9updatemanager.h"
-#include "qextserialport-1.2beta2/src/qextserialport.h"
-#include "qextserialport-1.2beta2/src/qextserialenumerator.h"
+#include <QSerialPort>
+#include <QSerialPortInfo>
 #include "OS_Wrapper_Functions.h"
 
 void B9PrinterStatus::reset(){
@@ -178,8 +154,7 @@ bool B9FirmwareUpdate::UploadHex(QString sCurPort)
 B9PrinterComm::B9PrinterComm()
 {
     m_bIsPrinting = false;
-    pPorts = new QList<QextPortInfo>;
-    pEnumerator = new QextSerialEnumerator();
+    pPorts = new QList<QSerialPortInfo>;
     m_serialDevice = NULL;
     m_bCloneBlanks = false;
     m_Status.reset();
@@ -191,7 +166,6 @@ B9PrinterComm::B9PrinterComm()
 B9PrinterComm::~B9PrinterComm()
 {
     if(pPorts)delete pPorts;
-    if(pEnumerator) pEnumerator->deleteLater();
     if(m_serialDevice) delete m_serialDevice;
     qDebug() << "B9Creator COMM End";
 }
@@ -268,16 +242,16 @@ void B9PrinterComm::RefreshCommPortItems()
 		
 	}
     //加载当前已枚举的可用端口
-    *pPorts = pEnumerator->getPorts();
+    *pPorts = QSerialPortInfo::availablePorts();
 
     if(m_serialDevice){
         //打印机是否还在连接吗？
         for (int i = 0; i < pPorts->size(); i++) {
         //检查每个现有的端口，看看我们的依然存在
         #ifdef Q_OS_LINUX
-            if(pPorts->at(i).physName == m_serialDevice->portName()){
+            if(pPorts->at(i).systemLocation() == m_serialDevice->portName()){
         #else
-            if(pPorts->at(i).portName == m_serialDevice->portName()){
+            if(pPorts->at(i).portName() == m_serialDevice->portName()){
         #endif
                 //我们仍处于连接状态，设置一个计时器在5秒钟，然后退出再次检查
                 QTimer::singleShot(5000, this, SLOT(RefreshCommPortItems()));
@@ -306,27 +280,27 @@ void B9PrinterComm::RefreshCommPortItems()
         qDebug() << "Scanning For Serial Port Devices (" << pPorts->size() << "found )";
         for (int i = 0; i < pPorts->size(); i++) {
             //COMMENTED BECAUSE ITS ANNOYYING...
-            //qDebug() << "  port name   " << pPorts->at(i).portName;
+            //qDebug() << "  port name   " << pPorts->at(i).portName();
             //qDebug() << "  locationInfo" << pPorts->at(i).physName;
          #ifndef Q_OS_LINUX
             //注意：我们只相信friendName，VENDORID和使用的productID Windows和OS_X
             //COMMENTED BECAUSE ITS ANNOYYING...
-            qDebug() << "  description " << pPorts->at(i).friendName;
-            qDebug() << "  vendorID    " << pPorts->at(i).vendorID;
-            qDebug() << "  productID   " << pPorts->at(i).productID;
+            qDebug() << "  description " << pPorts->at(i).description();
+            qDebug() << "  vendorID    " << pPorts->at(i).vendorIdentifier();
+            qDebug() << "  productID   " << pPorts->at(i).productIdentifier();
          #endif
          #ifdef Q_OS_LINUX
             // linux的ID端口名即为物理设备名
-            sPortName = pPorts->at(i).physName;
+            sPortName = pPorts->at(i).systemLocation();
             // 我们通过是否包含ttyA来过滤端口名
-            if(pPorts->at(i).portName.left(4) == "ttyA" && OpenB9CreatorCommPort(sPortName)){
+            if(pPorts->at(i).portName().left(4) == "ttyA" && OpenB9CreatorCommPort(sPortName)){
          #else
             // Windows和OSX使用端口名即为ID端口名
-            sPortName = pPorts->at(i).portName;
+            sPortName = pPorts->at(i).portName();
 
 
             // 我们通过是否与提供的厂商ID值 9025 (Arduino)匹配来过滤端口值
-            if(pPorts->at(i).vendorID==9025 && OpenB9CreatorCommPort(sPortName)){
+            if(pPorts->at(i).vendorIdentifier() == 9025 && OpenB9CreatorCommPort(sPortName)){
          #endif
                 //已连接!
                 sCommPortStatus = MSG_CONNECTED;
@@ -404,18 +378,18 @@ bool B9PrinterComm::OpenB9CreatorCommPort(QString sPortName)
     // 尝试建立与B9Creator串口连接
 	if(sPortName=="virtual")
 	{
-		m_serialDevice = new QVirtualSerialPort(QextSerialPort::EventDriven, this);
+		m_serialDevice = new QVirtualSerialPort(this);
 	}else{
-		m_serialDevice = new QextSerialPort(sPortName, QextSerialPort::EventDriven, this);
+		m_serialDevice = new QSerialPort(sPortName, this);
 	}
     if (m_serialDevice->open(QIODevice::ReadWrite) == true) {
-        m_serialDevice->setBaudRate(BAUD115200);
-        m_serialDevice->setDataBits(DATA_8);
-        m_serialDevice->setParity(PAR_NONE);
-        m_serialDevice->setStopBits(STOP_1);
-        m_serialDevice->setFlowControl(FLOW_OFF);
-        m_serialDevice->setDtr(true);   // 重置Arduino
-        m_serialDevice->setDtr(false);
+        m_serialDevice->setBaudRate(QSerialPort::Baud115200);
+        m_serialDevice->setDataBits(QSerialPort::Data8);
+        m_serialDevice->setParity(QSerialPort::NoParity);
+        m_serialDevice->setStopBits(QSerialPort::OneStop);
+        m_serialDevice->setFlowControl(QSerialPort::NoFlowControl);
+        m_serialDevice->setDataTerminalReady(true);   // 重置Arduino
+        m_serialDevice->setDataTerminalReady(false);
 
         connect(m_serialDevice, SIGNAL(readyRead()), this, SLOT(ReadAvailable()));
         qDebug() << "Opened Comm port:" << sPortName;

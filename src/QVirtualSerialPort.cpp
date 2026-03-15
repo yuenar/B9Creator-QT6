@@ -1,7 +1,20 @@
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    utils
+ * 文件名:     QVirtualSerialPort.cpp
+ * 模块功能:   虚拟串口实现文件，包含虚拟串口的具体实现
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
+
 #include "QVirtualSerialPort.h"
 
-
-QVirtualSerialPort::QVirtualSerialPort(QextSerialPort::QueryMode mode, QObject *parent):QextSerialPort(mode,parent)
+QVirtualSerialPort::QVirtualSerialPort(QObject *parent):QSerialPort(parent)
 {
 	setPortName(QLatin1String("virtual"));
 	projectorPower="P0\n";

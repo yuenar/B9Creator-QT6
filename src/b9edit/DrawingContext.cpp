@@ -146,7 +146,11 @@ void DrawingContext::GenerateGreenImage()
 ///////////////////////////////////
 void DrawingContext::drawLineTo(const QPoint &endPoint)
  {
+     if(!pActiveImage || pActiveImage->isNull()) return;
+     
      QPainter painter(pActiveImage);
+     if(!painter.isActive()) return;
+     
      painter.setPen(QPen(PenColor, PenWidth, Qt::SolidLine, Qt::RoundCap,
                          Qt::RoundJoin));
      painter.drawLine(lastPoint, endPoint);

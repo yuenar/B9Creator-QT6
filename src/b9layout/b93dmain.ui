@@ -2283,22 +2283,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>pixelsizecombo</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>B9Layout</receiver>
-   <slot>SetXYPixelSizePreset(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>332</x>
-     <y>125</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>314</x>
-     <y>81</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>duplicateButton</sender>
    <signal>clicked()</signal>
    <receiver>B9Layout</receiver>
@@ -2796,7 +2780,7 @@
   </connection>
   <connection>
    <sender>Support_Base_AttachType_comboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
+   <signal>currentIndexChanged(int)</signal>
    <receiver>B9Layout</receiver>
    <slot>OnBasePlatePropertiesChanged()</slot>
    <hints>

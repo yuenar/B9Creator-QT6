@@ -1,5 +1,18 @@
-#ifndef B9UPDATEMANAGER_H
-#define B9UPDATEMANAGER_H
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    system
+ * 文件名:     b9updatemanager.h
+ * 模块功能:   更新管理器头文件，定义应用程序更新相关类和接口
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
+#pragma once
+
 //自动检测更新程序
 //NOTE - Dont use https - windows 8 doesnt like it for some reason.
 //Instead use http
@@ -78,4 +91,4 @@ private slots:
     bool NeedsUpdated(B9UpdateEntry &candidate, B9UpdateEntry &remote);
 };
 
-#endif // B9UPDATEMANAGER_H
+

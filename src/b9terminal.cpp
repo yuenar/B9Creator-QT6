@@ -1,3 +1,17 @@
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    print
+ * 文件名:     b9terminal.cpp
+ * 模块功能:   终端实现文件，包含打印机终端的具体实现
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
+
 #include <QtDebug>
 #include <QMessageBox>
 #include <QSettings>
@@ -136,7 +150,7 @@ B9Terminal::B9Terminal(QWidget *parent, Qt::WindowFlags flags) :
     m_bPrintPreview = false;
     m_bUsePrimaryMonitor = false;
 
-    connect(QGuiApplication::primaryScreen(), SIGNAL(geometryChanged(const QRect&)), this, SLOT(onScreenCountChanged(int)));
+    connect(QGuiApplication::primaryScreen(), SIGNAL(geometryChanged(const QRect&)), this, SLOT(onScreenCountChanged(const QRect&)));
 
     connect(pPrinterComm,SIGNAL(updateConnectionStatus(QString)), this, SLOT(onUpdateConnectionStatus(QString)));
     connect(pPrinterComm,SIGNAL(BC_ConnectionStatusDetailed(QString)), this, SLOT(onBC_ConnectionStatusDetailed(QString)));
@@ -173,7 +187,7 @@ B9Terminal::B9Terminal(QWidget *parent, Qt::WindowFlags flags) :
     connect(m_pPReleaseCycleTimer, SIGNAL(timeout()), this, SLOT(onReleaseCycleTimeout()));
     connect(pPrinterComm, SIGNAL(BC_PrintReleaseCycleFinished()), this, SLOT(onBC_PrintReleaseCycleFinished()));
 
-    onScreenCountChanged(0);
+    onScreenCountChanged(QRect());
 }
 
 B9Terminal::~B9Terminal()
@@ -334,7 +348,7 @@ void B9Terminal::on_pushButtonProjPower_toggled(bool checked)
     emit(setProjectorPowerCmd(checked));
 
     // 如果m_bPrimaryScreen是真的，我们需要在打开投影机之前显示它！
-    if(m_bPrimaryScreen) onScreenCountChanged();
+    if(m_bPrimaryScreen) onScreenCountChanged(QRect());
     emit sendStatusMsg("B9Creator - Projector status: TURN ON");
 
     // 我们始终通电时关闭Vat
@@ -509,7 +523,7 @@ void B9Terminal::onBC_NativeX(int iNX){
 
 void B9Terminal::onBC_NativeY(int iNY){
     ui->lineEditNativeY->setText(QString::number(iNY));
-    if(pProjector == NULL)emit onScreenCountChanged();
+    if(pProjector == NULL)emit onScreenCountChanged(QRect());
 }
 
 void B9Terminal::onBC_XYPixelSize(int iPS){
@@ -1048,7 +1062,7 @@ int B9Terminal::getEstFinalCycleTime(int iCur, int iTgt){
     return iTimeReq;
 }
 
-void B9Terminal::onScreenCountChanged(int iCount){
+void B9Terminal::onScreenCountChanged(const QRect& geometry){
     QString sVideo = "Disconnected or Primary Monitor";
     if(pProjector) {
         delete pProjector;
@@ -1058,7 +1072,7 @@ void B9Terminal::onScreenCountChanged(int iCount){
     }
     pProjector = new B9Projector(true, 0,Qt::WindowStaysOnTopHint);
     makeProjectorConnections();
-    int i=iCount;
+    int i = 0; // 移除iCount变量引用
     int screenCount = m_screens.count();
     QRect screenGeometry;
 
