@@ -132,9 +132,47 @@ void MainWindow::showSplash()
 // 显示关于对话框
 void MainWindow::showAbout()
 {
+    QString aboutContent = QString(
+        "<h2>B9Editor - 切片编辑器</h2>"
+        "<p><b>版本信息:</b></p>"
+        "<ul>"
+        "<li><b>当前版本:</b> Qt6.6.x 迁移版本</li>"
+        "<li><b>原始版本:</b> 基于Qt4.8</li>"
+        "<li><b>最后更新:</b> 2026-03-15</li>"
+        "</ul>"
+        "<p><b>核心功能:</b></p>"
+        "<ul>"
+        "<li>• 3D模型切片编辑和可视化</li>"
+        "<li>• 支撑结构生成和编辑</li>"
+        "<li>• 洪水填充算法处理</li>"
+        "<li>• 多种文件格式导入导出</li>"
+        "</ul>"
+        "<p><b>技术更新:</b></p>"
+        "<ul>"
+        "<li>• 从Qt4.8成功迁移到Qt6.6.x</li>"
+        "<li>• 全面添加中文代码注释</li>"
+        "<li>• 优化算法性能和内存管理</li>"
+        "<li>• 改进用户界面和交互体验</li>"
+        "</ul>"
+        "<p><b>维护者信息:</b></p>"
+        "<ul>"
+        "<li><b>主要维护者:</b> owenzhang</li>"
+        "<li><b>邮箱:</b> yuenar2@gmail.com</li>"
+        "<li><b>负责内容:</b> Qt6迁移、代码维护、功能开发</li>"
+        "</ul>"
+        "<p><b>版权信息:</b></p>"
+        "<ul>"
+        "<li>© 2011-2012 B9Creations, LLC (原始版本)</li>"
+        "<li>© 2015-2026 yuenar2@gmail.com (维护更新)</li>"
+        "</ul>"
+        "<p><b>开源许可:</b></p>"
+        "<p>本软件基于 GNU General Public License v3.0 许可证开源</p>"
+        "<p><a href='http://b9creator.com/'>官方网站</a></p>"
+    );
+
     if(m_pSplash != NULL){
         // 在启动画面上显示版本信息，底部居中对齐，使用橙色文字
-        m_pSplash->showMessage(B9CVERSION, Qt::AlignBottom|Qt::AlignCenter, QColor(255,130,36));
+        m_pSplash->showMessage(aboutContent, Qt::AlignBottom|Qt::AlignCenter, QColor(255,130,36));
         m_pSplash->show();    // 显示启动画面
     }
 }
