@@ -1,70 +1,47 @@
-/*************************************************************************************
-//
-//  LICENSE INFORMATION
-//
-//  BCreator(tm)
-//  Software for the control of the 3D Printer, "B9Creator"(tm)
-//
-//  Copyright 2011-2012 B9Creations, LLC
-//  B9Creations(tm) and B9Creator(tm) are trademarks of B9Creations, LLC
-//
-//  This file is part of B9Creator
-//
-//    B9Creator is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//    B9Creator is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with B9Creator .  If not, see <http://www.gnu.org/licenses/>.
-//
-//  The above copyright notice and this permission notice shall be
-//    included in all copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-//    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-//    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-//    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-//    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-*************************************************************************************/
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    b9layout
+ * 文件名:     SlcExporter.h
+ * 模块功能:   SLC导出器头文件，定义SLC文件导出相关类和接口
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期:  2026-03-15
+ *    修改内容:  迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
 
-#ifndef SLCEXPORTER
-#define SLCEXPORTER
-#include <fstream>
+#pragma once
 
-#include <string>
+// STL相关头文件
+#include <fstream>    // 文件流
+#include <string>     // 字符串
 
+// 注释掉的命名空间使用
 //using namespace std;
 
+// SlcExporter类 - SLC文件导出器
 class SlcExporter
 {
 public:
-	SlcExporter(std::string filename);
-	~SlcExporter(void);
-	bool SuccessOpen(){return opened;}
+	SlcExporter(std::string filename);    // 构造函数，指定文件名
+	~SlcExporter(void);    // 析构函数
+	bool SuccessOpen(){return opened;}    // 检查文件是否成功打开
 
-	void WriteHeader(bool unitsINCH = false, bool unitsMM = true, std::string headerstring = "");
-	void WriteReservedSpace();
-	void WriteSampleTableSize(char ntables);
-	void WriteSampleTable(float minz, float layerthick, float linewidthcomp, float reserved = 0.0);
-	void WriteNewSlice(float zaltitude, unsigned int numboundries);
-	void WriteBoundryHeader(unsigned int numvertices, unsigned int numgaps);
-	void WriteBoundryVert(float xcord, float ycord);
+	void WriteHeader(bool unitsINCH = false, bool unitsMM = true, std::string headerstring = "");    // 写入文件头
+	void WriteReservedSpace();    // 写入保留空间
+	void WriteSampleTableSize(char ntables);    // 写入采样表大小
+	void WriteSampleTable(float minz, float layerthick, float linewidthcomp, float reserved = 0.0);    // 写入采样表
+	void WriteNewSlice(float zaltitude, unsigned int numboundries);    // 写入新切片
+	void WriteBoundryHeader(unsigned int numvertices, unsigned int numgaps);    // 写入边界头
+	void WriteBoundryVert(float xcord, float ycord);    // 写入边界顶点
 
 private:
-
-	std::string filename;
-	std::ofstream outfile;
-	bool opened;
-
+	// 私有成员变量
+	std::string filename;    // 文件名
+	std::ofstream outfile;    // 输出文件流
+	bool opened;    // 文件打开状态标志
 };
 
-#endif
+ 

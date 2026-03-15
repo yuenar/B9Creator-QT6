@@ -18,115 +18,133 @@
 #include "b9print.h"
 #include "ui_b9print.h"
 
+// B9Print构造函数 - 初始化打印对话框
 B9Print::B9Print(B9Terminal *pTerm, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::B9Print)
 {
+    // 设置终端指针引用
     m_pTerminal = pTerm;
     if(m_pTerminal == NULL) qFatal("FATAL Call to B9Creator with null B9Terminal Pointer");
+    
+    // 设置UI界面
     ui->setupUi(this);
 
-    //清除旧信息
-    ui->lineEditSerialStatus->setText("");
-    ui->lineEditProjectorOutput->setText("");
+    // 清除旧信息，初始化界面状态
+    ui->lineEditSerialStatus->setText("");      // 清空串口状态显示
+    ui->lineEditProjectorOutput->setText("");   // 清空投影机输出显示
 
-    m_iTbase = m_iTover = 0;
-    m_iTattach = 0;
-    m_iNumAttach = 1;
-    m_iXOff = m_iYOff =0;
-    m_iPrintState = PRINT_NO;
-    m_iPaused = PAUSE_NO;
-    m_bAbort = false;
-    m_sAbortMessage = "Unknown Abort";
-    m_iCurLayerNumber = 0;
-    m_dLayerThickness = 0.0;
-    m_iLastLayer = 0;
+    // 初始化打印参数
+    m_iTbase = m_iTover = 0;           // 基础层和覆盖层曝光时间初始化
+    m_iTattach = 0;                    // 附件层曝光时间初始化
+    m_iNumAttach = 1;                   // 附件层数量初始化
+    m_iXOff = m_iYOff =0;              // X/Y偏移量初始化
+    m_iPrintState = PRINT_NO;          // 打印状态初始化为未开始
+    m_iPaused = PAUSE_NO;              // 暂停状态初始化为未暂停
+    m_bAbort = false;                  // 中止标志初始化为false
+    m_sAbortMessage = "Unknown Abort"; // 中止消息初始化
+    m_iCurLayerNumber = 0;             // 当前层号初始化
+    m_dLayerThickness = 0.0;           // 层厚度初始化
+    m_iLastLayer = 0;                  // 最后一层号初始化
 
-    connect(m_pTerminal, SIGNAL(updateConnectionStatus(QString)), this, SLOT(on_updateConnectionStatus(QString)));
-    connect(m_pTerminal, SIGNAL(updateProjectorOutput(QString)), this, SLOT(on_updateProjectorOutput(QString)));
-    connect(m_pTerminal, SIGNAL(updateProjectorStatus(QString)), this, SLOT(on_updateProjectorStatus(QString)));
-    connect(m_pTerminal, SIGNAL(updateProjector(B9PrinterStatus::ProjectorStatus)), this, SLOT(on_updateProjector(B9PrinterStatus::ProjectorStatus)));
-    connect(m_pTerminal, SIGNAL(signalAbortPrint(QString)), this, SLOT(on_signalAbortPrint()));
-    connect(m_pTerminal, SIGNAL(PrintReleaseCycleFinished()), this, SLOT(exposeTBaseLayer()));
-    connect(m_pTerminal, SIGNAL(pausePrint()), this, SLOT(on_pushButtonPauseResume_clicked()));
-    connect(m_pTerminal, SIGNAL(sendStatusMsg(QString)),this, SLOT(setProjMessage(QString)));
+    // 连接终端信号到对应的槽函数
+    connect(m_pTerminal, SIGNAL(updateConnectionStatus(QString)), this, SLOT(on_updateConnectionStatus(QString)));        // 连接串口状态更新信号
+    connect(m_pTerminal, SIGNAL(updateProjectorOutput(QString)), this, SLOT(on_updateProjectorOutput(QString)));        // 连接投影机输出更新信号
+    connect(m_pTerminal, SIGNAL(updateProjectorStatus(QString)), this, SLOT(on_updateProjectorStatus(QString)));        // 连接投影机状态更新信号
+    connect(m_pTerminal, SIGNAL(updateProjector(B9PrinterStatus::ProjectorStatus)), this, SLOT(on_updateProjector(B9PrinterStatus::ProjectorStatus))); // 连接投影机状态信号
+    connect(m_pTerminal, SIGNAL(signalAbortPrint(QString)), this, SLOT(on_signalAbortPrint()));                           // 连接中止打印信号
+    connect(m_pTerminal, SIGNAL(PrintReleaseCycleFinished()), this, SLOT(exposeTBaseLayer()));                         // 连接释放周期完成信号
+    connect(m_pTerminal, SIGNAL(pausePrint()), this, SLOT(on_pushButtonPauseResume_clicked()));                    // 连接暂停打印信号
+    connect(m_pTerminal, SIGNAL(sendStatusMsg(QString)),this, SLOT(setProjMessage(QString)));                    // 连接状态消息发送信号
 
-    // 手动连接pushButtonAbort的clicked信号
+    // 手动连接pushButtonAbort的clicked信号，确保按钮点击能正确触发中止功能
     connect(ui->pushButtonAbort, SIGNAL(clicked()), this, SLOT(on_pushButtonAbort_clicked()));
 
+    // 显示当前时间到时间显示控件
     QString sTime = QDateTime::currentDateTime().toString("hh:mm");
-    ui->lcdNumberTime->setDigitCount(9);
-    ui->lcdNumberTime->display(sTime);
+    ui->lcdNumberTime->setDigitCount(9);    // 设置时间显示位数
+    ui->lcdNumberTime->display(sTime);     // 显示当前时间
 }
 
+// B9Print析构函数 - 清理资源
 B9Print::~B9Print()
 {
-    delete ui;
+    delete ui;    // 删除UI对象
 }
 
+// 键盘按键事件处理 - 吸收ESC键按下事件
 void B9Print::keyPressEvent(QKeyEvent * pEvent)
 {
-    //有了这个功能，吸收了ESC键！
+    // 吸收ESC键按下事件，防止对话框关闭
     QDialog::keyReleaseEvent(pEvent);
 }
 
+// 隐藏事件处理 - 当对话框隐藏时发出信号
 void B9Print::hideEvent(QHideEvent *event)
 {
-    emit eventHiding();
-    event->accept();
+    emit eventHiding();    // 发出隐藏事件信号
+    event->accept();       // 接受事件
 }
 
+// 关闭事件处理 - 阻止直接关闭，改为中止打印
 void B9Print::closeEvent ( QCloseEvent * event )
 {
-    event->ignore();
-    on_pushButtonAbort_clicked();
+    event->ignore();    // 忽略关闭事件
+    on_pushButtonAbort_clicked();    // 调用中止打印函数
 }
 
+// 显示帮助信息
 void B9Print::showHelp()
 {
-    m_HelpSystem.showHelpFile("openfile.html");
+    m_HelpSystem.showHelpFile("openfile.html");    // 显示帮助文件
 }
 
 void B9Print::on_updateConnectionStatus(QString sText)
 {
-    ui->lineEditSerialStatus->setText(sText);
+    ui->lineEditSerialStatus->setText(sText);    // 设置串口状态文本
 }
 
+// 更新投影机输出显示
 void B9Print::on_updateProjectorOutput(QString sText)
 {
-    ui->lineEditProjectorOutput->setText(sText);
+    ui->lineEditProjectorOutput->setText(sText);    // 设置投影机输出文本
 }
 
+// 更新投影机状态显示
 void B9Print::on_updateProjectorStatus(QString sText)
 {
-    ui->lineEditProjectorStatus->setText(sText);
+    ui->lineEditProjectorStatus->setText(sText);    // 设置投影机状态文本
 }
 
+// 设置投影机消息到终端
 void B9Print::setProjMessage(QString sText)
 {
-    m_pTerminal->rcSetProjMessage(sText);
+    m_pTerminal->rcSetProjMessage(sText);    // 通过终端设置投影机消息
 }
 
+// 更新时间显示和计算剩余时间
 QString B9Print::updateTimes()
 {
     QTime vTimeFinished, vTimeRemains, t;
+    // 计算剩余时间（毫秒）
     int iTime = m_pTerminal->getEstCompleteTimeMS(m_iCurLayerNumber,m_iLastLayer,m_pCPJ->getZLayermm(),m_iTbase+m_iTover);
-    int iM = iTime/60000;
-    int iH = iM/60;
-    iM = (int)((double)iM+0.5) - iH*60;
-    QString sLZ = ":0"; if(iM>9)sLZ = ":";
-    QString sTimeRemaining = QString::number(iH)+sLZ+QString::number(iM);
-    t.setHMS(0,0,0); vTimeRemains = t.addMSecs(iTime);
-    vTimeFinished = QTime::currentTime().addMSecs(iTime);
-    ui->lcdNumberTime->display(vTimeFinished.toString("hh:mm AP"));
-    ui->lcdNumberTimeRemaining->display(sTimeRemaining);
-    return "Estimated time remaining: "+sTimeRemaining+"  Estimated Completion Time: "+vTimeFinished.toString("hh:mm AP");
+    int iM = iTime/60000;    // 转换为分钟
+    int iH = iM/60;          // 转换为小时
+    iM = (int)((double)iM+0.5) - iH*60;    // 四舍五入分钟数
+    QString sLZ = ":0"; if(iM>9)sLZ = ":";    // 格式化分钟显示
+    QString sTimeRemaining = QString::number(iH)+sLZ+QString::number(iM);    // 格式化剩余时间字符串
+    t.setHMS(0,0,0); vTimeRemains = t.addMSecs(iTime);    // 计算剩余时间
+    vTimeFinished = QTime::currentTime().addMSecs(iTime);    // 计算完成时间
+    ui->lcdNumberTime->display(vTimeFinished.toString("hh:mm AP"));    // 显示完成时间
+    ui->lcdNumberTimeRemaining->display(sTimeRemaining);    // 显示剩余时间
+    return "Estimated time remaining: "+sTimeRemaining+"  Estimated Completion Time: "+vTimeFinished.toString("hh:mm AP");    // 返回时间信息
 }
 
+// 计算当前层的索引位置（毫米）
 double B9Print::curLayerIndexMM()
 {
-    //“0”层的厚度为0.00001
-    return (double)m_iCurLayerNumber * m_dLayerThickness + 0.00001;
+    // "0"层的厚度为0.00001，避免零值问题
+    return (double)m_iCurLayerNumber * m_dLayerThickness + 0.00001;    // 计算当前层位置
 }
 
 void B9Print::on_signalAbortPrint()

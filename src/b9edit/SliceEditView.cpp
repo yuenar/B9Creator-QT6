@@ -1,75 +1,58 @@
-/*************************************************************************************
-//
-//  LICENSE INFORMATION
-//
-//  BCreator(tm)
-//  Software for the control of the 3D Printer, "B9Creator"(tm)
-//
-//  Copyright 2011-2012 B9Creations, LLC
-//  B9Creations(tm) and B9Creator(tm) are trademarks of B9Creations, LLC
-//
-//  This file is part of B9Creator
-//
-//    B9Creator is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
-//
-//    B9Creator is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with B9Creator .  If not, see <http://www.gnu.org/licenses/>.
-//
-//  The above copyright notice and this permission notice shall be
-//    included in all copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-//    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-//    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-//    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-//    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-*************************************************************************************/
-
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    b9edit
+ * 文件名:     SliceEditView.cpp
+ * 模块功能:   切片编辑视图实现文件，定义切片编辑视图相关类和接口
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期: 2026-03-15
+ *    修改内容: 迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
 #include <QtGui>
 #include "SliceEditView.h"
 #include <QClipboard>
 #include <QColorDialog>
 #include <QInputDialog>
+
 /////////////////////////////////
-//Public
+//Public - 公共方法实现
 /////////////////////////////////
+
+// SliceEditView构造函数 - 初始化切片编辑视图
 SliceEditView::SliceEditView(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
 {
-	ui.setupUi(this);
+	ui.setupUi(this);    // 设置UI界面
 
-	bGrid = false;
-	supportMode = false;
-	pCPJ = NULL;
-	backupIndx = 0;
-	m_xOffset = 0;
-	m_yOffset = 0;
-	currSlice = 0;
+	// 初始化成员变量
+	bGrid = false;          // 网格显示标志初始化
+	supportMode = false;    // 支撑模式标志初始化
+	pCPJ = NULL;           // 打印作业指针初始化
+	backupIndx = 0;         // 备份索引初始化
+	m_xOffset = 0;         // X偏移量初始化
+	m_yOffset = 0;         // Y偏移量初始化
+	currSlice = 0;         // 当前切片号初始化
 
+    // 设置窗口图标
     setWindowIcon(QIcon(":/B9JobBuilder/icons/edit.png"));
-	setStatusBar(0);
+	setStatusBar(0);    // 不使用状态栏
 
-    //green timer定时器连接
-	greenTimer.setSingleShot(true);
-	greenTimer.setInterval(0);
-	greenTimer.stop();
+    // 初始化绿色刷新定时器
+	greenTimer.setSingleShot(true);    // 设置为单次触发
+	greenTimer.setInterval(0);         // 设置间隔为0毫秒
+	greenTimer.stop();                 // 停止定时器
+	// 连接定时器超时信号到刷新槽函数
 	QObject::connect(&greenTimer,SIGNAL(timeout()),this,SLOT(RefreshWithGreen()));
 
+	// 创建绘制上下文对象
 	pDrawingContext = new DrawingContext(this);
-	pDrawingContext->pEditView = this;
+	pDrawingContext->pEditView = this;    // 设置绘制上下文的父视图引用
 	
-	SetSupportTool("circle");
-	SetDrawTool("penfill");
+	// 初始化工具设置
+	SetSupportTool("circle");    // 设置默认支撑工具为圆形
+	SetDrawTool("penfill");      // 设置默认绘制工具为填充笔刷
 	
 	// Temporarily disable UI interactions
 // ui.actionPrepare_Base_Gap->setEnabled(false);

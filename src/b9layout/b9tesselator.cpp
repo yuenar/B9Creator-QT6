@@ -1,32 +1,47 @@
+/**************************************************************************
+ * Copyright(C),  yuenar2@gmail.com
+ * 模块名称:    b9layout
+ * 文件名:     b9tesselator.cpp
+ * 模块功能:   三角剖分类实现文件，包含OpenGL三角剖分的具体实现
+ * 创建者:    owenzhang
+ * 创建日期:    2026-03-15
+ * 版本号:     V1.0.0
+ * 历史记录:
+ * 1、修改者:   owenzhang
+ *    修改日期:  2026-03-15
+ *    修改内容:  迁移到Qt6，更新头部注释格式
+ ***************************************************************************/
+
 #include "b9tesselator.h"
-#include <QtOpenGL>
-#include "../OS_GL_Wrapper.h"
+#include <QtOpenGL>           // Qt OpenGL支持
+#include "../OS_GL_Wrapper.h" // OpenGL包装器
 
-
+// B9Tesselator构造函数 - 初始化三角剖分器
 B9Tesselator::B9Tesselator()
 {
-    memoryFull = false;
-    CombineSize = 2048;
+    memoryFull = false;    // 初始化内存满标志为false
+    CombineSize = 2048;    // 设置组合大小为2048
 }
+
+// B9Tesselator析构函数 - 清理资源
 B9Tesselator::~B9Tesselator()
 {
-    unsigned long int i;
+    unsigned long int i;    // 循环计数器
 
+    // 释放所有顶点数据内存
     for(i = 0; i < numPolyVerts; i++)
     {
-        delete[] polyverts[i];
+        delete[] polyverts[i];    // 删除每个顶点数组
     }
-    delete[] polyverts;
+    delete[] polyverts;    // 删除顶点指针数组
 }
 
-
-//输入plygonList必须按顺序 - 描绘填充值或void值
-int B9Tesselator::Triangulate( const std::vector<QVector2D>* polygonList, std::vector<QVector2D> *triangleStrip)
+// 三角剖分函数 - 输入polygonList必须按顺序 - 描绘填充值或void值
+int B9Tesselator::Triangulate(const std::vector<QVector2D>* polygonList, std::vector<QVector2D> *triangleStrip)
 {
-
-        unsigned long int i;
-        // Temporarily disable GLU tesselator functionality
-return 0;
+    unsigned long int i;    // 循环计数器
+    // 暂时禁用GLU三角剖分器功能
+    return 0;
 }
 std::vector<QVector2D>* B9Tesselator::GetTrangleStrip()
 {
